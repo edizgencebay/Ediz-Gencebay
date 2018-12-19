@@ -1,0 +1,73 @@
+// sensör 1 sensör 2
+int ldrdeger=0;
+float sicaklik;
+float ger;
+void setup()
+{
+Serial.begin(9600);
+pinMode(13,OUTPUT);
+pinMode(12,OUTPUT);
+pinMode(11,OUTPUT);
+pinMode(10,OUTPUT);
+pinMode(9,OUTPUT);
+pinMode(8,OUTPUT);
+}
+void loop()
+{
+
+ger=analogRead(A1); 
+ger=(ger/1023)*6000; 
+sicaklik=ger/10.0; 
+delay(5000);
+ldrdeger=analogRead(A0);
+if(sicaklik>30)
+{
+Serial.println("Yuksek sicaklik"); 
+digitalWrite(13,HIGH);
+digitalWrite(12,LOW);
+digitalWrite(11,LOW);
+}
+else if (sicaklik>25 && sicaklik<30)<br />
+{
+Serial.println("oda sicakligi");
+digitalWrite(13,LOW);
+digitalWrite(12,HIGH);
+digitalWrite(11,LOW);
+}
+else
+{
+Serial.println("dusuk sicakligi");
+digitalWrite(13,LOW);
+digitalWrite(12,LOW);
+digitalWrite(11,HIGH);
+}
+Serial.print("sicaklik degeri:");
+Serial.print(sicaklik); 
+Serial.println("derece");
+Serial.println("");
+
+//------------------------------------------------
+Serial.println(ldrdeger);
+if(ldrdeger>500 && ldrdeger<1024) //ODA IŞIĞI<br /> {
+digitalWrite(10,LOW);
+digitalWrite(9,LOW);
+digitalWrite(8,HIGH);
+}
+else if(ldrdeger>300 && ldrdeger<500)// IŞIK BİRAZ ARTIYOR<br /> {
+digitalWrite(10,LOW);
+digitalWrite(9,HIGH);
+digitalWrite(8,LOW);
+}
+else if(ldrdeger>100 && ldrdeger<300)// IŞIK ŞİDDETİ ÇOK FAZLA<br /> {
+digitalWrite(10,HIGH);
+digitalWrite(9,LOW);
+digitalWrite(8,LOW);
+} 
+else 
+{
+digitalWrite(10,HIGH);
+digitalWrite(9,HIGH);
+digitalWrite(8,HIGH);
+}
+
+}
